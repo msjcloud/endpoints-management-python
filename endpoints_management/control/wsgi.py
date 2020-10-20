@@ -72,14 +72,14 @@ def _get_platform():
         return report_request.ReportedPlatforms.DEVELOPMENT
     elif os.environ.get(u'KUBERNETES_SERVICE_HOST'):
         return report_request.ReportedPlatforms.GKE
+    elif server_software.startswith(u'Google App Engine'):
+        return report_request.ReportedPlatforms.GAE_STANDARD
     elif _running_on_gce():
         # We're either in GAE Flex or GCE
         if os.environ.get(u'GAE_MODULE_NAME'):
             return report_request.ReportedPlatforms.GAE_FLEX
         else:
             return report_request.ReportedPlatforms.GCE
-    elif server_software.startswith(u'Google App Engine'):
-        return report_request.ReportedPlatforms.GAE_STANDARD
 
     return report_request.ReportedPlatforms.UNKNOWN
 
